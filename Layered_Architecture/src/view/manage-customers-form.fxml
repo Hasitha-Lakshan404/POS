@@ -38,7 +38,7 @@
             <Font name="Ubuntu" size="27.0" />
          </font>
       </Label>
-      <JFXButton fx:id="btnAddNewCustomer" id="btnAddNewCustomer" layoutX="518.0" layoutY="25.0" onAction="#btnAddNew_OnAction" prefHeight="35.0" prefWidth="122.0" style="-fx-cursor: hand;" text="+ New Customer" />
+      <JFXButton id="btnAddNewCustomer" fx:id="btnAddNewCustomer" layoutX="483.0" layoutY="25.0" onAction="#btnAddNew_OnAction" prefHeight="35.0" prefWidth="146.0" style="-fx-cursor: hand;" text="+ New Customer" />
       <JFXTextField fx:id="txtCustomerId" labelFloat="true" layoutX="17.0" layoutY="118.0" prefHeight="28.0" prefWidth="615.0" promptText="Customer ID :">
          <font>
             <Font name="Ubuntu" size="13.0" />
@@ -51,7 +51,7 @@
         <columns>
           <TableColumn prefWidth="97.0" text="Customer ID" />
           <TableColumn prefWidth="230.0" text="Customer Name" />
-            <TableColumn prefWidth="282.0" text="Customer Address" />
+            <TableColumn prefWidth="287.0" text="Customer Address" />
         </columns>
       </TableView>
    </children>
