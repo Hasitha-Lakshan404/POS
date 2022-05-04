@@ -190,10 +190,13 @@ public class ManageCustomersFormController {
 
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getDbConnection().getConnection();
+        /*Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("SELECT id FROM Customer WHERE id=?");
         pstm.setString(1, id);
-        return pstm.executeQuery().next();
+        return pstm.executeQuery().next();*/
+
+        CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+        return customerDAO.existCustomer(id);
     }
 
 
@@ -219,8 +222,8 @@ public class ManageCustomersFormController {
     }
 
     private String generateNewId() {
-        try {
-            Connection connection = DBConnection.getDbConnection().getConnection();
+        try{
+            /*Connection connection = DBConnection.getDbConnection().getConnection();
             ResultSet rst = connection.createStatement().executeQuery("SELECT id FROM Customer ORDER BY id DESC LIMIT 1;");
             if (rst.next()) {
                 String id = rst.getString("id");
@@ -228,7 +231,11 @@ public class ManageCustomersFormController {
                 return String.format("C00-%03d", newCustomerId);
             } else {
                 return "C00-001";
-            }
+            }*/
+
+            CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+            return customerDAO.generateNewID();
+
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new id " + e.getMessage()).show();
         } catch (ClassNotFoundException e) {
