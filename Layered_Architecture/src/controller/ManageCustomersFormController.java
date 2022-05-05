@@ -2,6 +2,7 @@ package controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import dao.CustomerDAO;
 import dao.CustomerDAOImpl;
 import db.DBConnection;
 import javafx.application.Platform;
@@ -73,9 +74,10 @@ public class ManageCustomersFormController {
         /*Get all customers*/
         try {
 
-            //daoImpl
-            CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+            //daoImpl //loos Coupling
+            CustomerDAO customerDAO = new CustomerDAOImpl();
             ArrayList<CustomerDTO> allCustomers = customerDAO.getAllCustomers();
+
 
             for (CustomerDTO customer : allCustomers) {
                 tblCustomers.getItems().add(new CustomerTM(customer.getId(), customer.getName(), customer.getAddress()));
@@ -150,8 +152,8 @@ public class ManageCustomersFormController {
                     new Alert(Alert.AlertType.ERROR, id + " already exists").show();
                 }
 
-                CustomerDAOImpl customerDAO =new CustomerDAOImpl();
-                customerDAO.saveCustomer(new CustomerDTO(id,name,address));
+                CustomerDAO customerDAO = new CustomerDAOImpl();
+                customerDAO.saveCustomer(new CustomerDTO(id, name, address));
 
                 tblCustomers.getItems().add(new CustomerTM(id, name, address));
             } catch (SQLException e) {
@@ -169,9 +171,9 @@ public class ManageCustomersFormController {
                 }
 
 
-                //tight coupling but created DAO
-                CustomerDAOImpl customerDAO=new CustomerDAOImpl();
-                customerDAO.updateCustomer(new CustomerDTO(id,name,address));
+                //Loos coupling
+                CustomerDAO customerDAO  = new CustomerDAOImpl();
+                customerDAO.updateCustomer(new CustomerDTO(id, name, address));
 
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, "Failed to update the customer " + id + e.getMessage()).show();
@@ -195,7 +197,7 @@ public class ManageCustomersFormController {
         pstm.setString(1, id);
         return pstm.executeQuery().next();*/
 
-        CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+        CustomerDAO customerDAO  = new CustomerDAOImpl();
         return customerDAO.existCustomer(id);
     }
 
@@ -207,7 +209,7 @@ public class ManageCustomersFormController {
             if (!existCustomer(id)) {
                 new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
             }
-            CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+            CustomerDAO customerDAO = new CustomerDAOImpl();
             customerDAO.deleteCustomer(id);
 
             tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
@@ -233,7 +235,7 @@ public class ManageCustomersFormController {
                 return "C00-001";
             }*/
 
-            CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+            CustomerDAO customerDAO  = new CustomerDAOImpl();
             return customerDAO.generateNewID();
 
         } catch (SQLException e) {
