@@ -205,7 +205,7 @@ public class ManageItemsFormController {
                 pstm.executeUpdate();*/
 
 
-                itemDAO.addItem(new ItemDTO(code, description, unitPrice, qtyOnHand));
+                itemDAO.saveItem(new ItemDTO(code, description, unitPrice, qtyOnHand));
 
                 tblItems.getItems().add(new ItemTM(code, description, unitPrice, qtyOnHand));
 
