@@ -114,7 +114,7 @@ public class PlaceOrderFormController {
 
                         txtCustomerName.setText(customerDTO.getName());*/
 
-                        CustomerDAOImpl customerDAO=new CustomerDAOImpl();
+                        CustomerDAO customerDAO=new CustomerDAOImpl();
                         CustomerDTO search = customerDAO.search(newValue);
 
                         txtCustomerName.setText(search.getName());
@@ -155,7 +155,7 @@ public class PlaceOrderFormController {
                     txtDescription.setText(item.getDescription());
                     txtUnitPrice.setText(item.getUnitPrice().setScale(2).toString());*/
 
-                    ItemDAOImpl itemDAO=new ItemDAOImpl();
+                    ItemDAO itemDAO=new ItemDAOImpl();
                     ItemDTO item = itemDAO.search(newItemCode);
 
                     txtDescription.setText(item.getDescription());
@@ -206,6 +206,7 @@ public class PlaceOrderFormController {
         PreparedStatement pstm = connection.prepareStatement("SELECT code FROM Item WHERE code=?");
         pstm.setString(1, code);
         return pstm.executeQuery().next();*/
+
         ItemDAO item=new ItemDAOImpl();
         return item.existItem(code);
     }
@@ -227,7 +228,7 @@ public class PlaceOrderFormController {
 
             return rst.next() ? String.format("OID-%03d", (Integer.parseInt(rst.getString("oid").replace("OID-", "")) + 1)) : "OID-001";*/
 
-            OrderDAOImpl orderDAO=new OrderDAOImpl();
+            OrderDAO orderDAO=new OrderDAOImpl();
             return orderDAO.generateNewID();
 
         } catch (SQLException e) {

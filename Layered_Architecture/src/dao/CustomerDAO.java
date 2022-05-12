@@ -18,4 +18,6 @@ public interface CustomerDAO {
     boolean deleteCustomer(String id) throws SQLException, ClassNotFoundException;
 
     String generateNewID() throws SQLException, ClassNotFoundException;
+
+    CustomerDTO search(String id) throws SQLException, ClassNotFoundException;
 }

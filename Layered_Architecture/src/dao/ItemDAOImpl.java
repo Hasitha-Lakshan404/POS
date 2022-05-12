@@ -53,6 +53,7 @@ public class ItemDAOImpl implements ItemDAO {
         }
     }
 
+    @Override
     public ItemDTO search(String code) throws SQLException, ClassNotFoundException {
         ResultSet resultSet=CrudUtil.execute("SELECT * FROM Item WHERE code=?",code);
         if (resultSet.next()) {
