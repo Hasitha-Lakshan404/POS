@@ -219,7 +219,7 @@ public class ManageCustomersFormController {
     }
 
     private String generateNewId() {
-        try{
+        try {
             /*Connection connection = DBConnection.getDbConnection().getConnection();
             ResultSet rst = connection.createStatement().executeQuery("SELECT id FROM Customer ORDER BY id DESC LIMIT 1;");
             if (rst.next()) {

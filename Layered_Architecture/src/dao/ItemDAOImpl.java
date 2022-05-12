@@ -1,5 +1,6 @@
 package dao;
 import db.DBConnection;
+import model.CustomerDTO;
 import model.ItemDTO;
 import util.CrudUtil;
 
@@ -50,5 +51,19 @@ public class ItemDAOImpl implements ItemDAO {
         } else {
             return "I00-001";
         }
+    }
+
+    public ItemDTO search(String code) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet=CrudUtil.execute("SELECT * FROM Item WHERE code=?",code);
+        if (resultSet.next()) {
+            return new ItemDTO(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getBigDecimal(3),
+                    resultSet.getInt(4)
+            ) {
+            };
+        }
+        return null;
     }
 }

@@ -19,7 +19,7 @@
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="654.0">
          <fill>
-            <LinearGradient endX="0.04807692307692308" endY="0.7115384615384616">
+            <LinearGradient endX="0.04807692307692308" endY="0.905713218820015" startX="0.043689320388349516" startY="0.004854368932038833">
                <stops>
                   <Stop color="#1598d6" />
                   <Stop color="WHITE" offset="1.0" />
