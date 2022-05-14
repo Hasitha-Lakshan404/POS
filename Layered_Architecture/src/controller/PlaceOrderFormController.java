@@ -55,9 +55,9 @@ public class PlaceOrderFormController {
     public Label lblTotal;
     private String orderId;
 
-     CustomerDAO customerDAO=new CustomerDAOImpl();
-     ItemDAO itemDAO=new ItemDAOImpl();
-    OrderDAO orderDAO=new OrderDAOImpl();
+    public ItemDAO itemDAO = new ItemDAOImpl();
+    public OrderDAO orderDAO = new OrderDAOImpl();
+    public CustomerDAO customerDAO = new CustomerDAOImpl();
 
     public void initialize() throws SQLException, ClassNotFoundException {
 
@@ -353,7 +353,7 @@ public class PlaceOrderFormController {
         for (OrderDetailTM detail : tblOrderDetails.getItems()) {
             total = total.add(detail.getTotal());
         }
-        lblTotal.setText("Total: " +total);
+        lblTotal.setText("Total: " + total);
     }
 
     private void enableOrDisablePlaceOrderButton() {
