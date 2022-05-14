@@ -3,9 +3,7 @@ package controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import dao.CrudDAO;
-import dao.CustomerDAO;
 import dao.CustomerDAOImpl;
-import db.DBConnection;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,7 +42,8 @@ public class ManageCustomersFormController {
     public JFXButton btnAddNewCustomer;
 
     //Property Injection (DI)
-    private final CrudDAO customerDAO = new CustomerDAOImpl();
+    //Apply generics
+    private final CrudDAO<CustomerDTO,String> customerDAO = new CustomerDAOImpl();
 
     public void initialize() {
         tblCustomers.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -155,6 +154,7 @@ public class ManageCustomersFormController {
 
                 customerDAO.save(new CustomerDTO(id, name, address));
 
+
                 tblCustomers.getItems().add(new CustomerTM(id, name, address));
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, "Failed to save the customer " + e.getMessage()).show();
@@ -206,7 +206,7 @@ public class ManageCustomersFormController {
                 new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
             }
 
-            customerDAO.delete(id);
+            customerDAO.delete("id");
 
             tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
             tblCustomers.getSelectionModel().clearSelection();

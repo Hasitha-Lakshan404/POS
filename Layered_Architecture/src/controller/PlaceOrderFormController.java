@@ -19,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.CustomerDTO;
 import model.ItemDTO;
+import model.OrderDTO;
 import model.OrderDetailDTO;
 import view.tdm.OrderDetailTM;
 
@@ -55,9 +56,9 @@ public class PlaceOrderFormController {
     public Label lblTotal;
     private String orderId;
 
-    public CrudDAO itemDAO = new ItemDAOImpl();
-    public CrudDAO orderDAO = new OrderDAOImpl();
-    public CrudDAO customerDAO = new CustomerDAOImpl();
+    public CrudDAO<ItemDTO,String> itemDAO = new ItemDAOImpl();
+    public CrudDAO<OrderDTO,String> orderDAO = new OrderDAOImpl();
+    public CrudDAO<CustomerDTO,String> customerDAO = new CustomerDAOImpl();
 
     public void initialize() throws SQLException, ClassNotFoundException {
 
@@ -120,6 +121,7 @@ public class PlaceOrderFormController {
                         txtCustomerName.setText(customerDTO.getName());*/
 
 //                        CustomerDAO customerDAO=new CustomerDAOImpl();
+
 
                         CustomerDTO search = customerDAO.search(newValue);
 

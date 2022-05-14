@@ -34,23 +34,18 @@ public class OrderDAOImpl implements  CrudDAO<OrderDTO,String>{
         return false;
     }
 
-    @Override
-    public String generateNewID() throws SQLException, ClassNotFoundException {
-        return null;
-    }
 
     @Override
-    public CustomerDTO search(String id) throws SQLException, ClassNotFoundException {
+    public OrderDTO search(String id) throws SQLException, ClassNotFoundException {
         return null;
     }
 
 
-
-    /*@Override
+    @Override
     public String generateNewID() throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.execute("SELECT oid FROM `Orders` ORDER BY oid DESC LIMIT 1;");
         return rst.next() ? String.format("OID-%03d", (Integer.parseInt(rst.getString("oid").replace("OID-", "")) + 1)) : "OID-001";
-    }*/
+    }
 
 
 }

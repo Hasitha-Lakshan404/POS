@@ -38,7 +38,9 @@ public class OrderDetailsImpl implements CrudDAO<OrderDetailDTO,String>{
     }
 
     @Override
-    public CustomerDTO search(String id) throws SQLException, ClassNotFoundException {
+    public OrderDetailDTO search(String id) throws SQLException, ClassNotFoundException {
         return null;
     }
+
+
 }

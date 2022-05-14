@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 
 public class ItemDAOImpl implements CrudDAO<ItemDTO,String> {
-    @Override
+    /*@Override
     public ArrayList<ItemDTO> getAll() throws SQLException, ClassNotFoundException {
         return null;
     }
@@ -43,12 +43,12 @@ public class ItemDAOImpl implements CrudDAO<ItemDTO,String> {
     @Override
     public CustomerDTO search(String id) throws SQLException, ClassNotFoundException {
         return null;
-    }
+    }*/
 
 
 
-    /*@Override
-    public ArrayList<ItemDTO> getAllItems() throws SQLException, ClassNotFoundException {
+    @Override
+    public ArrayList<ItemDTO> getAll() throws SQLException, ClassNotFoundException {
         ResultSet result = CrudUtil.execute("SELECT * FROM Item");
         ArrayList<ItemDTO> ItemList = new ArrayList<>();
         while (result.next()) {
@@ -58,28 +58,28 @@ public class ItemDAOImpl implements CrudDAO<ItemDTO,String> {
     }
 
     @Override
-    public boolean deleteItem(String code) throws SQLException, ClassNotFoundException {
+    public boolean delete(String code) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("DELETE FROM Item WHERE code=?", code);
     }
 
     @Override
-    public boolean saveItem(ItemDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean save(ItemDTO dto) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?,?,?,?)", dto.getCode(), dto.getDescription(), dto.getUnitPrice(), dto.getQtyOnHand());
     }
 
     @Override
-    public boolean updateItem(ItemDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean update(ItemDTO dto) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?", dto.getDescription(), dto.getUnitPrice(), dto.getQtyOnHand(), dto.getCode());
     }
 
     @Override
-    public boolean existItem(String code) throws SQLException, ClassNotFoundException {
+    public boolean exist(String code) throws SQLException, ClassNotFoundException {
         ResultSet result = CrudUtil.execute("SELECT code FROM Item WHERE code=?", code);
         return result.next();
     }
 
     @Override
-    public String generateNewId() throws SQLException, ClassNotFoundException {
+    public String generateNewID() throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.execute("SELECT code FROM Item ORDER BY code DESC LIMIT 1");
         if (rst.next()) {
             String id = rst.getString("code");
@@ -103,5 +103,5 @@ public class ItemDAOImpl implements CrudDAO<ItemDTO,String> {
             };
         }
         return null;
-    }*/
+    }
 }

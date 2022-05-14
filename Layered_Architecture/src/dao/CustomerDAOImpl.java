@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class CustomerDAOImpl  implements CrudDAO<CustomerDTO,String>  {
-    @Override
+   /* @Override
     public ArrayList<CustomerDTO> getAll() throws SQLException, ClassNotFoundException {
         return null;
     }
@@ -42,12 +42,11 @@ public class CustomerDAOImpl  implements CrudDAO<CustomerDTO,String>  {
     @Override
     public CustomerDTO search(String id) throws SQLException, ClassNotFoundException {
         return null;
-    }
+    }*/
 
 
-
-    /*@Override
-    public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException, SQLException {
+    @Override
+    public ArrayList<CustomerDTO> getAll() throws SQLException, ClassNotFoundException, SQLException {
         ResultSet rst = CrudUtil.execute("SELECT * FROM Customer");
         ArrayList<CustomerDTO> cusList = new ArrayList<>();
         while (rst.next()) {
@@ -57,18 +56,18 @@ public class CustomerDAOImpl  implements CrudDAO<CustomerDTO,String>  {
     }
 
     @Override
-    public boolean saveCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
+    public boolean save(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("INSERT INTO Customer (id,name, address) VALUES (?,?,?)", customerDTO.getId(), customerDTO.getName(), customerDTO.getAddress());
 
     }
 
     @Override
-    public boolean updateCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
+    public boolean update(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("UPDATE Customer SET name=?, address=? WHERE id=?", customerDTO.getName(), customerDTO.getAddress(), customerDTO.getId());
     }
 
     @Override
-    public boolean deleteCustomer(String id) throws SQLException, ClassNotFoundException {
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("DELETE FROM Customer WHERE id=?", id);
     }
 
@@ -86,7 +85,7 @@ public class CustomerDAOImpl  implements CrudDAO<CustomerDTO,String>  {
     }
 
     @Override
-    public boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
+    public boolean exist(String id) throws SQLException, ClassNotFoundException {
         ResultSet result = CrudUtil.execute("SELECT id FROM Customer WHERE id=?", id);
         return result.next();
     }
@@ -102,6 +101,6 @@ public class CustomerDAOImpl  implements CrudDAO<CustomerDTO,String>  {
             );
         }
         return null;
-    }*/
+    }
 
 }
