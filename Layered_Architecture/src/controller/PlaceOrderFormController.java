@@ -55,9 +55,9 @@ public class PlaceOrderFormController {
     public Label lblTotal;
     private String orderId;
 
-    public ItemDAO itemDAO = new ItemDAOImpl();
-    public OrderDAO orderDAO = new OrderDAOImpl();
-    public CustomerDAO customerDAO = new CustomerDAOImpl();
+    public CrudDAO itemDAO = new ItemDAOImpl();
+    public CrudDAO orderDAO = new OrderDAOImpl();
+    public CrudDAO customerDAO = new CustomerDAOImpl();
 
     public void initialize() throws SQLException, ClassNotFoundException {
 
@@ -215,7 +215,7 @@ public class PlaceOrderFormController {
         return pstm.executeQuery().next();*/
 
 //        ItemDAO item=new ItemDAOImpl();
-        return itemDAO.existItem(code);
+        return itemDAO.exist(code);
     }
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
@@ -225,7 +225,7 @@ public class PlaceOrderFormController {
         return pstm.executeQuery().next();*/
 //        CustomerDAO customerDAO =new CustomerDAOImpl();
 
-        return customerDAO.existCustomer(id);
+        return customerDAO.exist(id);
     }
 
     public String generateNewOrderId() {
@@ -258,7 +258,7 @@ public class PlaceOrderFormController {
             }*/
 
 //            CustomerDAO customerDAO=new CustomerDAOImpl();
-            ArrayList<CustomerDTO> allCustomers = customerDAO.getAllCustomers();
+            ArrayList<CustomerDTO> allCustomers = customerDAO.getAll();
 
 
             for (CustomerDTO allCustomer : allCustomers) {
@@ -284,7 +284,7 @@ public class PlaceOrderFormController {
 
 //            ItemDAO itemDAO=new ItemDAOImpl();
 
-            ArrayList<ItemDTO> allItems = itemDAO.getAllItems();
+            ArrayList<ItemDTO> allItems = itemDAO.getAll();
 
             for (ItemDTO allItem : allItems) {
                 cmbItemCode.getItems().add(allItem.getCode());
