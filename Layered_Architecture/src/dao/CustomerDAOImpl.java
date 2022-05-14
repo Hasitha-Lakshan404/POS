@@ -8,29 +8,29 @@ import util.CrudUtil;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class CustomerDAOImpl  implements CrudDAO  {
+public class CustomerDAOImpl  implements CrudDAO<CustomerDTO,String>  {
     @Override
-    public ArrayList<Object> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<CustomerDTO> getAll() throws SQLException, ClassNotFoundException {
         return null;
     }
 
     @Override
-    public boolean save(Object dto) throws SQLException, ClassNotFoundException {
+    public boolean save(CustomerDTO dto) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean update(Object dto) throws SQLException, ClassNotFoundException {
+    public boolean update(CustomerDTO dto) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean exist(Object id) throws SQLException, ClassNotFoundException {
+    public boolean exist(String s) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean delete(Object id) throws SQLException, ClassNotFoundException {
+    public boolean delete(String s) throws SQLException, ClassNotFoundException {
         return false;
     }
 
