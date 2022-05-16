@@ -52,7 +52,7 @@ public class ItemDAOImpl implements CrudDAO<ItemDTO,String> {
         ResultSet result = CrudUtil.execute("SELECT * FROM Item");
         ArrayList<ItemDTO> ItemList = new ArrayList<>();
         while (result.next()) {
-            ItemList.add(new ItemDTO(result.getString(1), result.getString(2), result.getBigDecimal(3), result.getInt(4)));
+            ItemList.add(new ItemDTO(result.getString(1), result.getString(2), result.getBigDecimal(4), result.getInt(3)));
         }
         return ItemList;
     }
@@ -97,8 +97,8 @@ public class ItemDAOImpl implements CrudDAO<ItemDTO,String> {
             return new ItemDTO(
                     resultSet.getString(1),
                     resultSet.getString(2),
-                    resultSet.getBigDecimal(3),
-                    resultSet.getInt(4)
+                    resultSet.getBigDecimal(4),
+                    resultSet.getInt(3)
             ) {
             };
         }
