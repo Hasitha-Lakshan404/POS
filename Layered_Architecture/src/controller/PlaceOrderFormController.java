@@ -27,8 +27,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -43,6 +41,10 @@ import java.util.stream.Collectors;
 
 public class PlaceOrderFormController {
 
+    private final CrudDAO<ItemDTO, String> itemDAO = new ItemDAOImpl();
+    private final CrudDAO<OrderDTO, String> orderDAO = new OrderDAOImpl();
+    private final CrudDAO<CustomerDTO, String> customerDAO = new CustomerDAOImpl();
+    private final CrudDAO<OrderDetailDTO, String> orderDetailDAO = new OrderDetailsImpl();
     public AnchorPane root;
     public JFXButton btnPlaceOrder;
     public JFXTextField txtCustomerName;
@@ -57,12 +59,6 @@ public class PlaceOrderFormController {
     public Label lblId;
     public Label lblDate;
     public Label lblTotal;
-
-    private final CrudDAO<ItemDTO, String> itemDAO = new ItemDAOImpl();
-    private final CrudDAO<OrderDTO, String> orderDAO = new OrderDAOImpl();
-    private final CrudDAO<CustomerDTO, String> customerDAO = new CustomerDAOImpl();
-    private final CrudDAO<OrderDetailDTO,String> orderDetailDAO = new OrderDetailsImpl();
-
     private String orderId;
 
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -372,7 +368,7 @@ public class PlaceOrderFormController {
 
     public void btnPlaceOrder_OnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         boolean b = saveOrder(orderId, LocalDate.now(), cmbCustomerId.getValue(),
-                tblOrderDetails.getItems().stream().map(tm -> new OrderDetailDTO(orderId,tm.getCode(), tm.getQty(), tm.getUnitPrice())).collect(Collectors.toList()));
+                tblOrderDetails.getItems().stream().map(tm -> new OrderDetailDTO(orderId, tm.getCode(), tm.getQty(), tm.getUnitPrice())).collect(Collectors.toList()));
 
         if (b) {
             new Alert(Alert.AlertType.INFORMATION, "Order has been placed successfully").show();
@@ -400,7 +396,7 @@ public class PlaceOrderFormController {
            /* if (stm.executeQuery().next()) {
 
             }*/
-            if(orderDAO.exist(orderId)){
+            if (orderDAO.exist(orderId)) {
 
             }
 
@@ -419,7 +415,6 @@ public class PlaceOrderFormController {
             }
 
 //            stm = connection.prepareStatement("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)");
-
 
 
             for (OrderDetailDTO detail : orderDetails) {

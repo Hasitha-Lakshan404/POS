@@ -1,15 +1,14 @@
 package dao;
-import db.DBConnection;
-import model.CustomerDTO;
+
 import model.ItemDTO;
 import util.CrudUtil;
 
-import java.math.BigDecimal;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class ItemDAOImpl implements CrudDAO<ItemDTO,String> {
+public class ItemDAOImpl implements ItemDAO {
     /*@Override
     public ArrayList<ItemDTO> getAll() throws SQLException, ClassNotFoundException {
         return null;
@@ -44,7 +43,6 @@ public class ItemDAOImpl implements CrudDAO<ItemDTO,String> {
     public CustomerDTO search(String id) throws SQLException, ClassNotFoundException {
         return null;
     }*/
-
 
 
     @Override
@@ -92,7 +90,7 @@ public class ItemDAOImpl implements CrudDAO<ItemDTO,String> {
 
     @Override
     public ItemDTO search(String code) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet=CrudUtil.execute("SELECT * FROM Item WHERE code=?",code);
+        ResultSet resultSet = CrudUtil.execute("SELECT * FROM Item WHERE code=?", code);
         if (resultSet.next()) {
             return new ItemDTO(
                     resultSet.getString(1),
