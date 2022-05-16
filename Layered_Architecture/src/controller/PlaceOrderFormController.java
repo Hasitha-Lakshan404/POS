@@ -58,9 +58,11 @@ public class PlaceOrderFormController {
     public Label lblDate;
     public Label lblTotal;
 
-    public CrudDAO<ItemDTO, String> itemDAO = new ItemDAOImpl();
-    public CrudDAO<OrderDTO, String> orderDAO = new OrderDAOImpl();
-    public CrudDAO<CustomerDTO, String> customerDAO = new CustomerDAOImpl();
+    private final CrudDAO<ItemDTO, String> itemDAO = new ItemDAOImpl();
+    private final CrudDAO<OrderDTO, String> orderDAO = new OrderDAOImpl();
+    private final CrudDAO<CustomerDTO, String> customerDAO = new CustomerDAOImpl();
+    private final CrudDAO<OrderDetailDTO,String> orderDetailDAO = new OrderDetailsImpl();
+
     private String orderId;
 
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -417,7 +419,7 @@ public class PlaceOrderFormController {
             }
 
 //            stm = connection.prepareStatement("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)");
-            CrudDAO<OrderDetailDTO,String> orderDetailDAO = new OrderDetailsImpl();
+
 
 
             for (OrderDetailDTO detail : orderDetails) {
