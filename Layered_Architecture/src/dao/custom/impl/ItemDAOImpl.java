@@ -1,5 +1,6 @@
-package dao;
+package dao.custom.impl;
 
+import dao.custom.ItemDAO;
 import model.ItemDTO;
 import util.CrudUtil;
 
