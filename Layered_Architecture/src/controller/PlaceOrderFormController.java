@@ -41,10 +41,11 @@ import java.util.stream.Collectors;
 
 public class PlaceOrderFormController {
 
-    private final CrudDAO<ItemDTO, String> itemDAO = new ItemDAOImpl();
-    private final CrudDAO<OrderDTO, String> orderDAO = new OrderDAOImpl();
-    private final CrudDAO<CustomerDTO, String> customerDAO = new CustomerDAOImpl();
-    private final CrudDAO<OrderDetailDTO, String> orderDetailDAO = new OrderDetailsImpl();
+    private final ItemDAO itemDAO = new ItemDAOImpl();
+    private final OrderDAO orderDAO = new OrderDAOImpl();
+    private final CustomerDAO customerDAO = new CustomerDAOImpl();
+    private final OrderDetailsDAO orderDetailDAO = new OrderDetailsImpl();
+
     public AnchorPane root;
     public JFXButton btnPlaceOrder;
     public JFXTextField txtCustomerName;

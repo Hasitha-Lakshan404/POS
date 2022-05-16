@@ -103,4 +103,8 @@ public class CustomerDAOImpl  implements CustomerDAO  {
         return null;
     }
 
+    @Override
+    public ArrayList<CustomerDTO> getAllCustomerByAddress(String address) {
+        return null;
+    }
 }
