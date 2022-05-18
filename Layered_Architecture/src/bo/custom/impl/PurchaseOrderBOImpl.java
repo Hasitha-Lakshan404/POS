@@ -1,7 +1,6 @@
 package bo.custom.impl;
 
 import bo.custom.PurchaseOrderBO;
-import dao.DAOFactory;
 import dao.custom.*;
 import dao.custom.impl.*;
 import db.DBConnection;
@@ -22,7 +21,7 @@ public class PurchaseOrderBOImpl implements PurchaseOrderBO {
     private final ItemDAO itemDAO = new ItemDAOImpl();
     private final OrderDAO orderDAO = new OrderDAOImpl();
     private final CustomerDAO customerDAO = new CustomerDAOImpl();
-    private final OrderDetailsDAO orderDetailDAO = new OrderDetailsImpl();
+    private final OrderDetailsDAO orderDetailDAO = new OrderDetailsDAOImpl();
     private final JoinQueryDAO joinQueryDAO = new JoinQueryDAOImpl();
 
 

@@ -1,5 +1,7 @@
 package dao;
 
+import dao.custom.impl.*;
+
 public class DAOFactory {
     //singleton design pattern
     private static DAOFactory daoFactory;
@@ -22,18 +24,21 @@ public class DAOFactory {
         CUSTOMER,ITEM,ORDER,ORDERDETAILS,QUERYDAO
     }
 
-    public void getDAO(DAOTypes type){
+    //method for hide the object creation logic and return what client wants
+    public SuperDAO getDAO(DAOTypes type){
         switch (type){
             case CUSTOMER:
-                return;
+                return new CustomerDAOImpl();
             case ITEM:
-                return;
+                return new ItemDAOImpl();
             case ORDER:
-                return;
+                return new OrderDAOImpl();
             case ORDERDETAILS:
-                return;
+                return new OrderDetailsDAOImpl();
             case QUERYDAO:
-                return;
+                return new JoinQueryDAOImpl();
+            default:
+                return null;
         }
     }
 
