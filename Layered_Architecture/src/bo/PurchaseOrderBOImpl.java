@@ -78,7 +78,7 @@ public class PurchaseOrderBOImpl implements PurchaseOrderBO {
 //            ItemDTO item = findItem(detail.getItemCode());
 
             //========temporary  null======
-            ItemDTO item = null;
+            ItemDTO item = searchItem(detail.getItemCode());
             item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
 
                /* PreparedStatement pstm = connection.prepareStatement("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?");
