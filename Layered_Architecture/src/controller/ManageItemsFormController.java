@@ -1,5 +1,6 @@
 package controller;
 
+import bo.ItemBO;
 import bo.ItemBOImpl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -42,6 +43,8 @@ public class ManageItemsFormController {
 
     //Property Injection (DI)
 //    private final ItemDAO itemDAO = new ItemDAOImpl();
+
+    ItemBO itemBo = new ItemBOImpl();
 
     public void initialize() {
         tblItems.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("code"));
@@ -87,8 +90,7 @@ public class ManageItemsFormController {
 
 //            ArrayList<ItemDTO> allItems = itemDAO.getAll();
 
-            //DI / Tight Coupling
-            ItemBOImpl itemBo = new ItemBOImpl();
+            //
             ArrayList<ItemDTO> allItems = itemBo.getAllItem();
 
             for (ItemDTO item : allItems) {
@@ -157,8 +159,8 @@ public class ManageItemsFormController {
 
 
 //            itemDAO.delete(code);
-            //DI / Tight Coupling
-            ItemBOImpl itemBo = new ItemBOImpl();
+
+            //
             itemBo.deleteItem(code);
 
             tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
@@ -210,8 +212,7 @@ public class ManageItemsFormController {
 
 //                itemDAO.save(new ItemDTO(code, description, unitPrice, qtyOnHand));
 
-                //DI / Tight Coupling
-                ItemBOImpl itemBo = new ItemBOImpl();
+                //
                 itemBo.saveItem(new ItemDTO(code,description,unitPrice,qtyOnHand));
 
                 tblItems.getItems().add(new ItemTM(code, description, unitPrice, qtyOnHand));
@@ -240,8 +241,7 @@ public class ManageItemsFormController {
 
 //                itemDAO.update(new ItemDTO(code, description, unitPrice, qtyOnHand));
 
-                //DI / Tight Coupling
-                ItemBOImpl itemBo = new ItemBOImpl();
+                //
                 itemBo.updateItem(new ItemDTO(code,description,unitPrice,qtyOnHand));
 
                 ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
@@ -268,8 +268,7 @@ public class ManageItemsFormController {
 
 //        return itemDAO.exist(code);
 
-        //DI / Tight Coupling
-        ItemBOImpl itemBo = new ItemBOImpl();
+        //
         return itemBo.existItem(code);
     }
 
@@ -289,8 +288,7 @@ public class ManageItemsFormController {
 
 //            return itemDAO.generateNewID();
 
-            //DI / Tight Coupling
-            ItemBOImpl itemBo = new ItemBOImpl();
+            //
             return itemBo.generateNewItemId();
 
         } catch (SQLException e) {
