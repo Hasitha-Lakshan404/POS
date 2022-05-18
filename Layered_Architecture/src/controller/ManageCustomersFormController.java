@@ -1,5 +1,6 @@
 package controller;
 
+import bo.CustomerBO;
 import bo.CustomerBOImpl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -30,6 +31,7 @@ import java.util.List;
  * @since : 0.1.0
  **/
 
+
 public class ManageCustomersFormController {
     public AnchorPane root;
     public JFXTextField txtCustomerName;
@@ -43,6 +45,8 @@ public class ManageCustomersFormController {
     //Property Injection (DI)
     //Apply generics
 //    private final CustomerDAO customerDAO = new CustomerDAOImpl();
+
+    CustomerBO manageCustomersBO = new CustomerBOImpl();
 
     public void initialize() {
 
@@ -79,8 +83,7 @@ public class ManageCustomersFormController {
 
 //            ArrayList<CustomerDTO> allCustomers = customerDAO.getAll();
 
-            //DI /Tight Coupling
-            CustomerBOImpl manageCustomersBO = new CustomerBOImpl();
+
             ArrayList<CustomerDTO> allCustomers = manageCustomersBO.getAllCustomer();
 
 
@@ -159,8 +162,7 @@ public class ManageCustomersFormController {
 
 //                customerDAO.save(new CustomerDTO(id, name, address));
 
-                //DI / Tight Coupling
-                CustomerBOImpl manageCustomersBO = new CustomerBOImpl();
+                //
                 manageCustomersBO.saveCustomer(new CustomerDTO(id, name, address));
 
                 tblCustomers.getItems().add(new CustomerTM(id, name, address));
@@ -180,8 +182,7 @@ public class ManageCustomersFormController {
 
 //                customerDAO.update(new CustomerDTO(id, name, address));
 
-                //Di /Tight Coupling
-                CustomerBOImpl manageCustomersBO = new CustomerBOImpl();
+                //
                 manageCustomersBO.updateCustomer(new CustomerDTO(id, name, address));
 
 
@@ -209,8 +210,7 @@ public class ManageCustomersFormController {
 
 //        return customerDAO.exist(id);
 
-        //DI /Tight Coupling
-        CustomerBOImpl manageCustomersBO = new CustomerBOImpl();
+        //
         return manageCustomersBO.existCustomer(id);
     }
 
@@ -225,8 +225,7 @@ public class ManageCustomersFormController {
 
 //            customerDAO.delete("id");
 
-            //DI /Tight Coupling
-            CustomerBOImpl manageCustomersBO = new CustomerBOImpl();
+            //
             manageCustomersBO.deleteCustomer(id);
 
             tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
@@ -253,7 +252,7 @@ public class ManageCustomersFormController {
             }*/
 
 //            return customerDAO.generateNewID();
-            CustomerBOImpl manageCustomersBO = new CustomerBOImpl();
+            //
             return manageCustomersBO.generateNewCustomerId();
 
         } catch (SQLException e) {
