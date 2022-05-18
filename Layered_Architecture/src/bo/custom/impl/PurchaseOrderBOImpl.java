@@ -17,6 +17,7 @@ import java.util.List;
 
 public class PurchaseOrderBOImpl implements PurchaseOrderBO {
 
+    //want to add design pattern to hide object implementation
     private final ItemDAO itemDAO = new ItemDAOImpl();
     private final OrderDAO orderDAO = new OrderDAOImpl();
     private final CustomerDAO customerDAO = new CustomerDAOImpl();
