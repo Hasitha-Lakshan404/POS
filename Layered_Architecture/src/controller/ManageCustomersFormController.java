@@ -160,8 +160,6 @@ public class ManageCustomersFormController {
                     new Alert(Alert.AlertType.ERROR, id + " already exists").show();
                 }
 
-//                customerDAO.save(new CustomerDTO(id, name, address));
-
                 //
                 manageCustomersBO.saveCustomer(new CustomerDTO(id, name, address));
 
@@ -180,7 +178,6 @@ public class ManageCustomersFormController {
                     new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
                 }
 
-//                customerDAO.update(new CustomerDTO(id, name, address));
 
                 //
                 manageCustomersBO.updateCustomer(new CustomerDTO(id, name, address));
@@ -203,13 +200,6 @@ public class ManageCustomersFormController {
 
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
-        /*Connection connection = DBConnection.getDbConnection().getConnection();
-        PreparedStatement pstm = connection.prepareStatement("SELECT id FROM Customer WHERE id=?");
-        pstm.setString(1, id);
-        return pstm.executeQuery().next();*/
-
-//        return customerDAO.exist(id);
-
         //
         return manageCustomersBO.existCustomer(id);
     }
@@ -223,7 +213,6 @@ public class ManageCustomersFormController {
                 new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
             }
 
-//            customerDAO.delete("id");
 
             //
             manageCustomersBO.deleteCustomer(id);
@@ -241,18 +230,6 @@ public class ManageCustomersFormController {
 
     private String generateNewId() {
         try {
-            /*Connection connection = DBConnection.getDbConnection().getConnection();
-            ResultSet rst = connection.createStatement().executeQuery("SELECT id FROM Customer ORDER BY id DESC LIMIT 1;");
-            if (rst.next()) {
-                String id = rst.getString("id");
-                int newCustomerId = Integer.parseInt(id.replace("C00-", "")) + 1;
-                return String.format("C00-%03d", newCustomerId);
-            } else {
-                return "C00-001";
-            }*/
-
-//            return customerDAO.generateNewID();
-            //
             return manageCustomersBO.generateNewCustomerId();
 
         } catch (SQLException e) {

@@ -41,12 +41,6 @@ import java.util.stream.Collectors;
 
 public class PlaceOrderFormController {
 
-    /*private final ItemDAO itemDAO = new ItemDAOImpl();
-    private final OrderDAO orderDAO = new OrderDAOImpl();
-    private final CustomerDAO customerDAO = new CustomerDAOImpl();
-    private final OrderDetailsDAO orderDetailDAO = new OrderDetailsImpl();
-    private final JoinQueryDAO joinQueryDAO = new JoinQueryDAOImpl();*/
-
     public AnchorPane root;
     public JFXButton btnPlaceOrder;
     public JFXTextField txtCustomerName;
@@ -117,20 +111,6 @@ public class PlaceOrderFormController {
                             new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + newValue + "").show();
                         }
 
-                        /*PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Customer WHERE id=?");
-                        pstm.setString(1, newValue + "");
-                        ResultSet rst = pstm.executeQuery();
-                        rst.next();
-                        CustomerDTO customerDTO = new CustomerDTO(newValue + "", rst.getString("name"), rst.getString("address"));
-
-                        txtCustomerName.setText(customerDTO.getName());*/
-
-//                        CustomerDAO customerDAO=new CustomerDAOImpl();
-
-
-                        //go to Business Layer
-//                        CustomerDTO search = customerDAO.search(newValue);
-
                         //
                         CustomerDTO search = purchaseOrderBO.searchCustomer(newValue);
 
@@ -163,21 +143,6 @@ public class PlaceOrderFormController {
                     if (!existItem(newItemCode + "")) {
 //                        throw new NotFoundException("There is no such item associated with the id " + code);
                     }
-                    /*Connection connection = DBConnection.getDbConnection().getConnection();
-                    PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Item WHERE code=?");
-                    pstm.setString(1, newItemCode + "");
-                    ResultSet rst = pstm.executeQuery();
-                    rst.next();
-                    ItemDTO item = new ItemDTO(newItemCode + "", rst.getString("description"), rst.getBigDecimal("unitPrice"), rst.getInt("qtyOnHand"));
-
-                    txtDescription.setText(item.getDescription());
-                    txtUnitPrice.setText(item.getUnitPrice().setScale(2).toString());*/
-
-//                    ItemDAO itemDAO=new ItemDAOImpl();
-
-
-                    //Go to BLayer
-//                    ItemDTO item = itemDAO.search(newItemCode);
 
                     //
                     ItemDTO item = purchaseOrderBO.searchItem(newItemCode);
@@ -226,27 +191,11 @@ public class PlaceOrderFormController {
     }
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
-        /*Connection connection = DBConnection.getDbConnection().getConnection();
-        PreparedStatement pstm = connection.prepareStatement("SELECT code FROM Item WHERE code=?");
-        pstm.setString(1, code);
-        return pstm.executeQuery().next();*/
-
-//        ItemDAO item=new ItemDAOImpl();
-//        return itemDAO.exist(code);
-
         //
         return purchaseOrderBO.existItem(code);
     }
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
-       /* Connection connection = DBConnection.getDbConnection().getConnection();
-        PreparedStatement pstm = connection.prepareStatement("SELECT id FROM Customer WHERE id=?");
-        pstm.setString(1, id);
-        return pstm.executeQuery().next();*/
-//        CustomerDAO customerDAO =new CustomerDAOImpl();
-
-//        return customerDAO.exist(id);
-
         //
        return purchaseOrderBO.checkCustomerIsAvailable(id);
 
@@ -256,15 +205,6 @@ public class PlaceOrderFormController {
 
     public String generateNewOrderId() {
         try {
-           /* Connection connection = DBConnection.getDbConnection().getConnection();
-            Statement stm = connection.createStatement();
-            ResultSet rst = stm.executeQuery("SELECT oid FROM `Orders` ORDER BY oid DESC LIMIT 1;");
-
-            return rst.next() ? String.format("OID-%03d", (Integer.parseInt(rst.getString("oid").replace("OID-", "")) + 1)) : "OID-001";*/
-
-//            OrderDAO orderDAO=new OrderDAOImpl();
-//            return orderDAO.generateNewID();
-
             //
             return purchaseOrderBO.generateNewOrderId();
 
@@ -278,17 +218,6 @@ public class PlaceOrderFormController {
 
     private void loadAllCustomerIds() {
         try {
-           /* Connection connection = DBConnection.getDbConnection().getConnection();
-            Statement stm = connection.createStatement();
-            ResultSet rst = stm.executeQuery("SELECT * FROM Customer");
-
-            while (rst.next()) {
-                cmbCustomerId.getItems().add(rst.getString("id"));
-            }*/
-
-//            CustomerDAO customerDAO=new CustomerDAOImpl();
-//            ArrayList<CustomerDTO> allCustomers = customerDAO.getAll();
-
             //
             ArrayList<CustomerDTO> allCustomers = purchaseOrderBO.getAllCustomer();
 
@@ -307,18 +236,6 @@ public class PlaceOrderFormController {
     private void loadAllItemCodes() {
         try {
             /*Get all items*/
-            /*Connection connection = DBConnection.getDbConnection().getConnection();
-            Statement stm = connection.createStatement();
-            ResultSet rst = stm.executeQuery("SELECT * FROM Item");
-            while (rst.next()) {
-                cmbItemCode.getItems().add(rst.getString("code"));
-            }*/
-
-//            ItemDAO itemDAO=new ItemDAOImpl();
-
-//            ArrayList<ItemDTO> allItems = itemDAO.getAll();
-
-
             //
             ArrayList<ItemDTO> allItems = purchaseOrderBO.getAllItem();
 
@@ -434,16 +351,8 @@ public class PlaceOrderFormController {
 
     public ItemDTO findItem(String code) {
         try {
-           /* Connection connection = DBConnection.getDbConnection().getConnection();
-            PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Item WHERE code=?");
-            pstm.setString(1, code);
-            ResultSet rst = pstm.executeQuery();
-            rst.next();*/
-//            return itemDAO.search(code);
-
             //
             return purchaseOrderBO.searchItem(code);
-//            return new ItemDTO(code, rst.getString("description"), rst.getBigDecimal("unitPrice"), rst.getInt("qtyOnHand"));
 
         } catch (SQLException e) {
             throw new RuntimeException("Failed to find the Item " + code, e);
