@@ -1,9 +1,8 @@
 package controller;
 
+import bo.CustomerBOImpl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import dao.custom.CustomerDAO;
-import dao.custom.impl.CustomerDAOImpl;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,7 +20,7 @@ import view.tdm.CustomerTM;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -43,7 +42,7 @@ public class ManageCustomersFormController {
 
     //Property Injection (DI)
     //Apply generics
-    private final CustomerDAO customerDAO = new CustomerDAOImpl();
+//    private final CustomerDAO customerDAO = new CustomerDAOImpl();
 
     public void initialize() {
 
@@ -78,7 +77,12 @@ public class ManageCustomersFormController {
         /*Get all customers*/
         try {
 
-            ArrayList<CustomerDTO> allCustomers = customerDAO.getAll();
+//            ArrayList<CustomerDTO> allCustomers = customerDAO.getAll();
+
+            //DI /Tight Coupling
+            CustomerBOImpl manageCustomersBO = new CustomerBOImpl();
+            ArrayList<CustomerDTO> allCustomers = manageCustomersBO.getAllCustomer();
+
 
             for (CustomerDTO customer : allCustomers) {
                 tblCustomers.getItems().add(new CustomerTM(customer.getId(), customer.getName(), customer.getAddress()));
@@ -153,8 +157,11 @@ public class ManageCustomersFormController {
                     new Alert(Alert.AlertType.ERROR, id + " already exists").show();
                 }
 
-                customerDAO.save(new CustomerDTO(id, name, address));
+//                customerDAO.save(new CustomerDTO(id, name, address));
 
+                //DI / Tight Coupling
+                CustomerBOImpl manageCustomersBO = new CustomerBOImpl();
+                manageCustomersBO.saveCustomer(new CustomerDTO(id, name, address));
 
                 tblCustomers.getItems().add(new CustomerTM(id, name, address));
             } catch (SQLException e) {
@@ -171,7 +178,12 @@ public class ManageCustomersFormController {
                     new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
                 }
 
-                customerDAO.update(new CustomerDTO(id, name, address));
+//                customerDAO.update(new CustomerDTO(id, name, address));
+
+                //Di /Tight Coupling
+                CustomerBOImpl manageCustomersBO = new CustomerBOImpl();
+                manageCustomersBO.updateCustomer(new CustomerDTO(id, name, address));
+
 
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, "Failed to update the customer " + id + e.getMessage()).show();
@@ -195,7 +207,11 @@ public class ManageCustomersFormController {
         pstm.setString(1, id);
         return pstm.executeQuery().next();*/
 
-        return customerDAO.exist(id);
+//        return customerDAO.exist(id);
+
+        //DI /Tight Coupling
+        CustomerBOImpl manageCustomersBO = new CustomerBOImpl();
+        return manageCustomersBO.existCustomer(id);
     }
 
 
@@ -207,7 +223,11 @@ public class ManageCustomersFormController {
                 new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
             }
 
-            customerDAO.delete("id");
+//            customerDAO.delete("id");
+
+            //DI /Tight Coupling
+            CustomerBOImpl manageCustomersBO = new CustomerBOImpl();
+            manageCustomersBO.deleteCustomer(id);
 
             tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
             tblCustomers.getSelectionModel().clearSelection();
@@ -232,7 +252,9 @@ public class ManageCustomersFormController {
                 return "C00-001";
             }*/
 
-            return customerDAO.generateNewID();
+//            return customerDAO.generateNewID();
+            CustomerBOImpl manageCustomersBO = new CustomerBOImpl();
+            return manageCustomersBO.generateNewCustomerId();
 
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new id " + e.getMessage()).show();
