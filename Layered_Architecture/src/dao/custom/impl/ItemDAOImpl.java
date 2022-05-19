@@ -1,6 +1,6 @@
 package dao.custom.impl;
 
-import dao.CrudUtil;
+
 import dao.custom.ItemDAO;
 import entity.Item;
 import util.CrudUtil;
@@ -51,7 +51,8 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public boolean exist(String code) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("SELECT code FROM Item WHERE code=?", code).next();
+        ResultSet resultSet = CrudUtil.execute("SELECT code FROM Item WHERE code=?", code);
+        return resultSet.next();
     }
 
     @Override
@@ -66,8 +67,5 @@ public class ItemDAOImpl implements ItemDAO {
         }
     }
 
-    @Override
-    public ArrayList<Item> getItemFromPrice(double price) throws ClassNotFoundException, SQLException {
-        return null;
-    }
+
 }

@@ -8,6 +8,10 @@ import dto.CustomerDTO;
 import dto.ItemDTO;
 import dto.OrderDTO;
 import dto.OrderDetailDTO;
+import entity.Customer;
+import entity.Item;
+import entity.OrderDetails;
+import entity.Orders;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -26,20 +30,20 @@ public class PurchaseOrderBOImpl implements PurchaseOrderBO {
     private final JoinQueryDAO joinQueryDAO = (JoinQueryDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.QUERYDAO);
 
     @Override
-    public boolean purchaseOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) throws SQLException, ClassNotFoundException {
+    public boolean purchaseOrder(OrderDTO dto) throws SQLException, ClassNotFoundException {
         /*Transaction*/
 
 
         Connection connection = DBConnection.getDbConnection().getConnection();
 
-        if (orderDAO.exist(orderId)) {
+        if (orderDAO.exist(dto.getOrderId())) {
 
         }
 
         connection.setAutoCommit(false);
 
 
-        boolean save = orderDAO.save(new OrderDTO(orderId, orderDate, customerId));
+        boolean save = orderDAO.save(new Orders(dto.getOrderId(), dto.getOrderDate(), dto.getCustomerId()));
 
         if (!save) {
             connection.rollback();
@@ -48,10 +52,9 @@ public class PurchaseOrderBOImpl implements PurchaseOrderBO {
         }
 
 
+        for (OrderDetailDTO detailDTO : dto.getOrderDetails()) {
 
-        for (OrderDetailDTO detail : orderDetails) {
-
-            boolean save1 = orderDetailDAO.save(detail);
+            boolean save1 = orderDetailDAO.save(new OrderDetails(detailDTO.getOid(),detailDTO.getItemCode(),detailDTO.getQty(),detailDTO.getUnitPrice()));
 
             if (!save1) {
                 connection.rollback();
@@ -60,10 +63,10 @@ public class PurchaseOrderBOImpl implements PurchaseOrderBO {
             }
 
 
-            ItemDTO item = searchItem(detail.getItemCode());
-            item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
+            ItemDTO item = searchItem(detailDTO.getItemCode());
+            item.setQtyOnHand(item.getQtyOnHand() - detailDTO.getQty());
 
-            boolean update = itemDAO.update(item);
+            boolean update = itemDAO.update(new Item(item.getCode(), item.getDescription(), item.getQtyOnHand(), item.getUnitPrice()));
             if (!update) {
                 connection.rollback();
                 connection.setAutoCommit(true);
@@ -79,12 +82,14 @@ public class PurchaseOrderBOImpl implements PurchaseOrderBO {
 
     @Override
     public CustomerDTO searchCustomer(String id) throws SQLException, ClassNotFoundException {
-        return customerDAO.search(id);
+        Customer ent = customerDAO.search(id);
+        return new CustomerDTO(ent.getId(), ent.getName(), ent.getAddress());
     }
 
     @Override
     public ItemDTO searchItem(String id) throws SQLException, ClassNotFoundException {
-        return itemDAO.search(id);
+        Item ent = itemDAO.search(id);
+        return new ItemDTO(ent.getCode(), ent.getDescription(), ent.getUnitPrice(), ent.getQtyOnHand());
     }
 
     @Override
@@ -104,12 +109,22 @@ public class PurchaseOrderBOImpl implements PurchaseOrderBO {
 
     @Override
     public ArrayList<CustomerDTO> getAllCustomer() throws SQLException, ClassNotFoundException {
-        return customerDAO.getAll();
+        ArrayList<Customer> all = customerDAO.getAll();
+        ArrayList<CustomerDTO> allCustomers = new ArrayList<>();
+        for (Customer ent : all) {
+            allCustomers.add(new CustomerDTO(ent.getId(), ent.getName(), ent.getAddress()));
+        }
+        return allCustomers;
     }
 
     @Override
     public ArrayList<ItemDTO> getAllItem() throws SQLException, ClassNotFoundException {
-        return itemDAO.getAll();
+        ArrayList<Item> all = itemDAO.getAll();
+        ArrayList<ItemDTO> allItems = new ArrayList<>();
+        for (Item ent : all) {
+            allItems.add(new ItemDTO(ent.getCode(), ent.getDescription(), ent.getUnitPrice(), ent.getQtyOnHand()));
+        }
+        return allItems;
     }
 
 }

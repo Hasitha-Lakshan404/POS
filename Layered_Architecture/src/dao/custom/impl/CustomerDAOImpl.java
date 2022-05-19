@@ -1,6 +1,5 @@
 package dao.custom.impl;
 
-import dao.CrudUtil;
 import dao.custom.CustomerDAO;
 import dto.CustomerDTO;
 import entity.Customer;
@@ -50,7 +49,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("SELECT id FROM Customer WHERE id=?", id).next();
+        ResultSet resultSet = CrudUtil.execute("SELECT id FROM Customer WHERE id=?", id);
+        return resultSet.next();
     }
 
 
@@ -71,10 +71,8 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
     }
 
-
-
     @Override
-    public ArrayList<Customer> getAllCustomerByAddress(String address) {
+    public ArrayList<CustomerDTO> getAllCustomerByAddress(String address) {
         return null;
     }
 }
