@@ -1,7 +1,7 @@
 package dao.custom.impl;
 
 import dao.custom.JoinQueryDAO;
-import model.CustomDTO;
+import dto.CustomDTO;
 import util.CrudUtil;
 
 import java.sql.ResultSet;

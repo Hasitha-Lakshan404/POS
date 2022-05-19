@@ -1,35 +1,37 @@
 package dao.custom.impl;
 
+import dao.CrudUtil;
 import dao.custom.OrderDetailsDAO;
-import model.OrderDetailDTO;
+import entity.OrderDetails;
 import util.CrudUtil;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * @author : Sanu Vithanage
+ * @since : 0.1.0
+ **/
 public class OrderDetailsDAOImpl implements OrderDetailsDAO {
+
     @Override
-    public ArrayList<OrderDetailDTO> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<OrderDetails> getAll() throws SQLException, ClassNotFoundException {
         return null;
     }
 
     @Override
-    public boolean save(OrderDetailDTO dto) throws SQLException, ClassNotFoundException {
-//        stm = connection.prepareStatement("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)");
-        /*stm.setString(1, orderId);
-        stm.setString(2, detail.getItemCode());
-        stm.setBigDecimal(3, detail.getUnitPrice());
-        stm.setInt(4, detail.getQty());*/
-        return CrudUtil.execute("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)"
-                ,dto.getOid(),
-                dto.getItemCode(),
-                dto.getUnitPrice(),
-                dto.getQty());
+    public boolean save(OrderDetails entity) throws SQLException, ClassNotFoundException {
+        return CrudUtil.execute("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)", entity.getOid(), entity.getItemCode(), entity.getUnitPrice(), entity.getQty());
     }
 
     @Override
-    public boolean update(OrderDetailDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean update(OrderDetails entity) throws SQLException, ClassNotFoundException {
         return false;
+    }
+
+    @Override
+    public OrderDetails search(String s) throws SQLException, ClassNotFoundException {
+        return null;
     }
 
     @Override
@@ -46,11 +48,4 @@ public class OrderDetailsDAOImpl implements OrderDetailsDAO {
     public String generateNewID() throws SQLException, ClassNotFoundException {
         return null;
     }
-
-    @Override
-    public OrderDetailDTO search(String id) throws SQLException, ClassNotFoundException {
-        return null;
-    }
-
-
 }

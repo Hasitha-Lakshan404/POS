@@ -1,8 +1,8 @@
 package bo.custom;
 
-import model.CustomerDTO;
-import model.ItemDTO;
-import model.OrderDetailDTO;
+import dto.CustomerDTO;
+import dto.ItemDTO;
+import dto.OrderDetailDTO;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
